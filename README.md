@@ -1,7 +1,11 @@
 # 🖥️ Skull Soul4
 
-## 📆 Develop Schedule
-* 23.12.14 ~ 23.12.21
+## 📽️ 프로젝트 소개
+ - 게임 이름 : Skull Soul4
+ - 플랫폼 : PC
+ - 장르 : 2D 로그라이크
+ - 개발 기간 : 23.12.14 ~ 23.12.21
+<br/>
 
 ## ⚙️ Environment
 - `Unity 2022.3.2`
@@ -9,6 +13,7 @@
 - **VCS** : Git (GitHub Desktop)
 - **Envrionment** : PC `only`
 - **Resolution** :	1920 x 1080 `FHD`
+<br/>
 
 ## 👤 Collaborator - Team Intro
 - 팀장  `성연호` - 몬스터
@@ -17,6 +22,7 @@
 - 팀원3 `고현규` - UI
 - 팀원4 `이준호` - GameManager
 - 팀원5 `나재민` - 아이템, 스킬
+<br/>
 
 ## ▶️ 게임 스크린샷
 <p align="center">
@@ -36,7 +42,93 @@
   <img src="https://github.com/gusrb0296/RogueLike/assets/149379194/cc58fc1c-b94e-43ef-a821-d326926ae1b0" width="49%"/>
 </p>
 
-## 🎮 만든 기능들 
+## ✏️ 구현 기능
+
+### 1. 스킬 아이템 구현
+<img src="https://github.com/JaeMinNa/Ocean_Bloom/assets/149379194/0935979e-6a46-40a4-9ede-ce4098a92469" width="50%"/>
+
+- 아이템을 먹으면 스킬이 활성화되고 스킬을 사용할 수 있도록 구현
+- 단축키를 누르면 스킬 프리팹을 생성해서 좌 또는 우로 움직이도록 구현
+<br/>
+
+### 2. 포션 아이템 구현
+<img src="https://github.com/JaeMinNa/Ocean_Bloom/assets/149379194/4e703166-ce89-4d45-b84e-2e95311970da" width="50%"/>
+
+- 각각 아이템을 먹으면 Player의 Power, Speed, AttackSpeed를 일정 시간 동안 상승하도록 구현
+<br/>
+
+### 3. 스킬 쿨타임 표시 기능 구현
+<img src="https://github.com/JaeMinNa/Ocean_Bloom/assets/149379194/31d9e376-e72f-41f6-b494-d3adbc55a0be" width="50%"/>
+
+- Image Type을 Filled로 변경해서 쿨타임 시간 동안은 이미지가 점차 차는 효과를 코드로 구현
+```C#
+IEnumerator CoolTimeRoutine()
+{
+    float coolTime = Player.Data.SkillData.SkillCoolTime;
+    float timer = 0f;
+    while (true)
+    {
+        timer += Time.deltaTime;
+        float per = timer / coolTime;
+        _image.fillAmount = per;
+
+        if (timer >= coolTime)
+        {
+            _image.fillAmount = 1f;
+            break;
+        }
+        yield return null;
+    }
+}
+```
+<br/>
+
+### 4. 데미지 표시 구현
+<img src="https://github.com/JaeMinNa/Ocean_Bloom/assets/149379194/3d2a5e16-ac68-4483-8ba2-870d7b6e0abe" width="50%"/>
+
+- TextMeshPro-Text로 일반 공격, 스킬 공격 시, 적용 데미지를 Instantiate, Destroy로 구현
+<br/>
+
+## � 트러블 슈팅
+
+### 1. 스킬 적중 시, 진동 효과 구현
+<img src="https://github.com/JaeMinNa/Ocean_Bloom/assets/149379194/4877cc7a-5670-4c25-830b-8cbe80763347" width="50%"/>
+
+#### MainCamera의 position 값 변경으로 카메라 흔들리는 효과 구현
+- MainCamera가 Player의 position을 따라가도록 구현해서 어색함
+```C#
+IEnumerator Shake(float shakeAmount, float shakeTime)
+{
+    float timer = 0;
+    while (timer <= shakeTime)
+    {
+        Camera.main.transform.position 
+            = new Vector3 (UnityEngine.Random.insideUnitCircle.x * shakeAmount, UnityEngine.Random.insideUnitCircle.y * shakeAmount, -10);
+        timer += Time.deltaTime;
+        yield return null;
+    }
+    Camera.main.transform.position = new Vector3(0, 0, -10);
+}
+```
+#### MainCamera의 rotation 값 변경으로 구현
+- position 값을 변경하는 것과 유사한 효과
+```C#
+IEnumerator Shake(float shakeAmount, float shakeTime)
+{
+    float timer = 0;
+    while (timer <= shakeTime)
+    {
+        Camera.main.transform.rotation = Quaternion.Euler((Vector3)UnityEngine.Random.insideUnitCircle * shakeAmount);
+        timer += Time.deltaTime;
+        yield return null;
+    }
+    Camera.main.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+}
+```
+<br/>
+
+
+## 🎮 전체 구현 기능 
 1. 랜덤 던전 생성
 2. 캐릭터 조작
 3. 아이템 수집
@@ -97,3 +189,4 @@
 * 메인 씬으로 이동하거나, 스타트 씬으로 이동하면 음악이 재생 됩니다
 * 전투 방을 이동하면 음악이 재생 됩니다
 * 보스 방에 들어가면 음악이 재생됩니다.
+<br/>
