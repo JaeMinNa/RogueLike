@@ -62,6 +62,8 @@
 <img src="https://github.com/JaeMinNa/Ocean_Bloom/assets/149379194/31d9e376-e72f-41f6-b494-d3adbc55a0be" width="50%"/>
 
 - Image Type을 Filled로 변경해서 쿨타임 시간 동안은 이미지가 점차 차는 효과를 코드로 구현
+<img src="https://github.com/JaeMinNa/Ocean_Bloom/assets/149379194/ec05403f-c070-4d5f-a96c-6a911b66bbc7" width="50%"/>
+
 ```C#
 IEnumerator CoolTimeRoutine()
 {
