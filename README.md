@@ -92,7 +92,7 @@ IEnumerator CoolTimeRoutine()
 - TextMeshPro-Text로 일반 공격, 스킬 공격 시, 적용 데미지를 Instantiate, Destroy로 구현
 <br/>
 
-## � 트러블 슈팅
+## 💥 트러블 슈팅
 
 ### 1. 스킬 적중 시, 진동 효과 구현
 <img src="https://github.com/JaeMinNa/Ocean_Bloom/assets/149379194/4877cc7a-5670-4c25-830b-8cbe80763347" width="50%"/>
